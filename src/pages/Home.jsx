@@ -207,7 +207,7 @@ export default function Home() {
         <SectionHeading eyebrow="@thecrescentbloom" title="From the studio" align="center" />
         <div className="mt-8 grid grid-cols-3 md:grid-cols-6 gap-2 sm:gap-3">
           {GALLERY_SEEDS.map((seed) => (
-            
+            <a
               key={seed}
               href="https://instagram.com"
               target="_blank"
