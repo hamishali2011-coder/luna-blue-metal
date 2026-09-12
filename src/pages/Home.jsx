@@ -38,7 +38,7 @@ export default function Home() {
               Wire, twisted by hand, into something worth keeping.
             </h1>
             <p className="mt-5 text-[16px] text-ink/60 leading-relaxed max-w-md">
-              Luna Blue Metal shapes pipe-cleaner keychains, bouquets and charms in soft blue and
+              The Crescent Bloom shapes pipe-cleaner keychains, bouquets and charms in soft blue and
               silver tones — each one bent, coiled and finished by hand.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
@@ -172,7 +172,7 @@ export default function Home() {
 
       {/* Why choose us */}
       <section className="container-page py-14">
-        <SectionHeading eyebrow="Why Luna Blue Metal" title="What makes each piece worth it" align="center" />
+        <SectionHeading eyebrow="Why The Crescent Bloom" title="What makes each piece worth it" align="center" />
         <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-6">
           {WHY_US.map(({ icon: Icon, title, text }) => (
             <div key={title} className="text-center px-2">
@@ -204,10 +204,10 @@ export default function Home() {
 
       {/* Instagram gallery */}
       <section className="container-page py-14">
-        <SectionHeading eyebrow="@lunabluemetal" title="From the studio" align="center" />
+        <SectionHeading eyebrow="@thecrescentbloom" title="From the studio" align="center" />
         <div className="mt-8 grid grid-cols-3 md:grid-cols-6 gap-2 sm:gap-3">
           {GALLERY_SEEDS.map((seed) => (
-            <a
+            
               key={seed}
               href="https://instagram.com"
               target="_blank"
