@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
-import { LayoutDashboard, LogOut, Menu, Package, ShoppingCart, X } from 'lucide-react'
+import { LayoutDashboard, LogOut, Menu, Package, Settings, ShoppingCart, X } from 'lucide-react'
 import Logo from '../components/Logo'
 import { useAuth } from '../context/AuthContext'
 
@@ -8,6 +8,7 @@ const LINKS = [
   { to: '/admin', label: 'Dashboard', icon: LayoutDashboard, end: true },
   { to: '/admin/products', label: 'Products', icon: Package },
   { to: '/admin/orders', label: 'Orders', icon: ShoppingCart },
+  { to: '/admin/settings', label: 'Settings', icon: Settings },
 ]
 
 export default function AdminLayout() {

@@ -3,10 +3,12 @@ import { useNavigate } from 'react-router-dom'
 import { ArrowRight, MessageCircle } from 'lucide-react'
 import { useProducts } from '../hooks/useProducts'
 import { useCart } from '../context/CartContext'
+import { useSettings, whatsAppLink } from '../hooks/useSettings'
 
 export default function CustomOrder() {
   const { products } = useProducts()
   const { addItem } = useCart()
+  const { settings } = useSettings()
   const navigate = useNavigate()
   const [form, setForm] = useState({ occasion: '', palette: '', details: '' })
   const [submitted, setSubmitted] = useState(false)
@@ -43,7 +45,7 @@ export default function CustomOrder() {
             anything is made.
           </p>
           <a
-            href="https://wa.me/00000000000"
+            href={whatsAppLink(settings.whatsapp_number, "Hi! I'd like to talk about a custom order.")}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-6 inline-flex items-center gap-2 text-[14.5px] font-medium text-midnight-700"

@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 
 const CartContext = createContext(null)
 const STORAGE_KEY = 'lbm_cart_v1'
-export const DELIVERY_FEE = 250
+export const DELIVERY_FEE = 50
 export const FREE_DELIVERY_THRESHOLD = 5000
 
 function readStoredCart() {

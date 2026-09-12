@@ -13,6 +13,7 @@ import AdminDashboard from './admin/AdminDashboard'
 import AdminProducts from './admin/AdminProducts'
 import AdminProductForm from './admin/AdminProductForm'
 import AdminOrders from './admin/AdminOrders'
+import AdminSettings from './admin/AdminSettings'
 import ProtectedRoute from './admin/ProtectedRoute'
 import NotFound from './pages/NotFound'
 
@@ -44,6 +45,7 @@ export default function App() {
         <Route path="products/new" element={<AdminProductForm />} />
         <Route path="products/:id/edit" element={<AdminProductForm />} />
         <Route path="orders" element={<AdminOrders />} />
+        <Route path="settings" element={<AdminSettings />} />
       </Route>
     </Routes>
   )

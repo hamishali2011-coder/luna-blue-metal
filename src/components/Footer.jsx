@@ -3,8 +3,11 @@ import { Instagram, Mail, MessageCircle } from 'lucide-react'
 import Logo from './Logo'
 import WireLoop from './WireLoop'
 import { CATEGORIES } from '../data/sampleProducts'
+import { useSettings, whatsAppLink } from '../hooks/useSettings'
 
 export default function Footer() {
+  const { settings } = useSettings()
+
   return (
     <footer className="bg-midnight-800 text-silver-200 mt-24">
       <div className="container-page pt-16 pb-8">
@@ -44,7 +47,16 @@ export default function Footer() {
             <p className="text-[13px] uppercase tracking-wider text-silver-400 mb-4">Say hello</p>
             <ul className="space-y-3 text-[14.5px]">
               <li className="flex items-center gap-2"><Instagram size={16} /> @thecrescentbloom</li>
-              <li className="flex items-center gap-2"><MessageCircle size={16} /> WhatsApp orders welcome</li>
+              <li className="flex items-center gap-2">
+                <MessageCircle size={16} />
+                {settings.whatsapp_number ? (
+                  <a href={whatsAppLink(settings.whatsapp_number)} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                    WhatsApp us
+                  </a>
+                ) : (
+                  'WhatsApp orders welcome'
+                )}
+              </li>
               <li className="flex items-center gap-2"><Mail size={16} /> hello@thecrescentbloom.com</li>
             </ul>
           </div>
