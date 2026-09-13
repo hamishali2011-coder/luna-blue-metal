@@ -62,7 +62,11 @@ export async function createOrder({ customer, items, subtotal, deliveryFee, tota
   // Best-effort stock decrement — safe to ignore failures here since the
   // order itself already succeeded.
   for (const item of items) {
-    await supabase.rpc('decrement_stock', { p_product_id: item.id, p_quantity: item.quantity }).catch(() => {})
+    try {
+      await supabase.rpc('decrement_stock', { p_product_id: item.id, p_quantity: item.quantity })
+    } catch {
+      // ignore — stock decrement is best-effort only
+    }
   }
 
   return { orderId, demo: false }
