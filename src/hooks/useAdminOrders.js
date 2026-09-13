@@ -20,7 +20,7 @@ export function useAdminOrders() {
     if (!isSupabaseConfigured) return
     load()
     const channel = supabase
-      .channel('orders-realtime')
+      .channel(`orders-realtime-${Math.random().toString(36).slice(2)}`)
       .on('postgres_changes', { event: '*', schema: 'public', table: 'orders' }, load)
       .subscribe()
     return () => supabase.removeChannel(channel)

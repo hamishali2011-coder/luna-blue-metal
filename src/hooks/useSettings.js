@@ -30,7 +30,7 @@ export function useSettings() {
     load()
 
     const channel = supabase
-      .channel('settings-realtime')
+      .channel(`settings-realtime-${Math.random().toString(36).slice(2)}`)
       .on('postgres_changes', { event: '*', schema: 'public', table: 'store_settings' }, load)
       .subscribe()
 

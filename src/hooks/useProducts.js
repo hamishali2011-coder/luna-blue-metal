@@ -41,7 +41,7 @@ export function useProducts() {
     load()
 
     const channel = supabase
-      .channel('products-realtime')
+      .channel(`products-realtime-${Math.random().toString(36).slice(2)}`)
       .on('postgres_changes', { event: '*', schema: 'public', table: 'products' }, () => {
         load()
       })
