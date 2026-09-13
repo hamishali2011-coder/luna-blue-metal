@@ -28,9 +28,12 @@ export async function createOrder({ customer, items, subtotal, deliveryFee, tota
 
   if (customerError) throw customerError
 
-  const { data: order, error: orderError } = await supabase
+  const orderId = crypto.randomUUID()
+
+  const { error: orderError } = await supabase
     .from('orders')
     .insert({
+      id: orderId,
       customer_name: customer.name,
       phone: customer.phone,
       whatsapp: customer.whatsapp,
@@ -43,13 +46,11 @@ export async function createOrder({ customer, items, subtotal, deliveryFee, tota
       status: 'pending',
       customer_id: customerRow?.id ?? null,
     })
-    .select()
-    .single()
 
   if (orderError) throw orderError
 
   const orderItems = items.map((item) => ({
-    order_id: order.id,
+    order_id: orderId,
     product_id: item.id,
     quantity: item.quantity,
     price: item.price,
@@ -64,5 +65,5 @@ export async function createOrder({ customer, items, subtotal, deliveryFee, tota
     await supabase.rpc('decrement_stock', { p_product_id: item.id, p_quantity: item.quantity }).catch(() => {})
   }
 
-  return { orderId: order.id, demo: false }
+  return { orderId, demo: false }
 }
