@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ChevronDown, ChevronUp } from 'lucide-react'
+import { ChevronDown, ChevronUp, Trash2 } from 'lucide-react'
 import { useAdminOrders } from '../hooks/useAdminOrders'
 import { formatPrice } from '../lib/format'
 import { isSupabaseConfigured } from '../lib/supabaseClient'
@@ -15,8 +15,21 @@ const STATUS_STYLES = {
 }
 
 export default function AdminOrders() {
-  const { orders, loading, updateStatus } = useAdminOrders()
+  const { orders, loading, updateStatus, deleteOrder } = useAdminOrders()
   const [expanded, setExpanded] = useState(null)
+  const [deletingId, setDeletingId] = useState(null)
+
+  async function handleDelete(order) {
+    if (!confirm(`Delete this order from ${order.customer_name}? This cannot be undone.`)) return
+    setDeletingId(order.id)
+    try {
+      await deleteOrder(order.id)
+    } catch (err) {
+      alert(err.message)
+    } finally {
+      setDeletingId(null)
+    }
+  }
 
   return (
     <div>
@@ -80,15 +93,24 @@ export default function AdminOrders() {
                   </div>
                 </div>
 
-                <div className="mt-4 flex items-center gap-3">
-                  <label className="text-[13px] font-medium text-ink/60">Status</label>
-                  <select
-                    value={order.status}
-                    onChange={(e) => updateStatus(order.id, e.target.value)}
-                    className="border border-silver-300 rounded-full px-4 py-2 text-[13.5px] bg-paper outline-none capitalize"
+                <div className="mt-4 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <label className="text-[13px] font-medium text-ink/60">Status</label>
+                    <select
+                      value={order.status}
+                      onChange={(e) => updateStatus(order.id, e.target.value)}
+                      className="border border-silver-300 rounded-full px-4 py-2 text-[13.5px] bg-paper outline-none capitalize"
+                    >
+                      {STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
+                    </select>
+                  </div>
+                  <button
+                    onClick={() => handleDelete(order)}
+                    disabled={deletingId === order.id}
+                    className="inline-flex items-center gap-1.5 text-[13px] font-medium text-red-500 hover:text-red-600 disabled:opacity-40"
                   >
-                    {STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
-                  </select>
+                    <Trash2 size={15} /> Delete order
+                  </button>
                 </div>
               </div>
             )}

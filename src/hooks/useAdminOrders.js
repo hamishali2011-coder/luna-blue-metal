@@ -32,5 +32,11 @@ export function useAdminOrders() {
     setOrders((prev) => prev.map((o) => (o.id === orderId ? { ...o, status } : o)))
   }
 
-  return { orders, loading, updateStatus }
+  async function deleteOrder(orderId) {
+    const { error } = await supabase.from('orders').delete().eq('id', orderId)
+    if (error) throw error
+    setOrders((prev) => prev.filter((o) => o.id !== orderId))
+  }
+
+  return { orders, loading, updateStatus, deleteOrder }
 }
