@@ -19,13 +19,21 @@ const WHY_US = [
   { icon: Recycle, title: 'Built to last', text: 'Wire-core pieces that hold their shape — no wilting, ever.' },
 ]
 
-const GALLERY_SEEDS = ['luna-ig-1', 'luna-ig-2', 'luna-ig-3', 'luna-ig-4', 'luna-ig-5', 'luna-ig-6']
-
 export default function Home() {
   const { products } = useProducts()
   const featured = products.filter((p) => p.featured).slice(0, 4)
   const newArrivals = [...products].sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).slice(0, 4)
   const bestSellers = [...products].sort((a, b) => a.stock - b.stock).slice(0, 4)
+
+  // Use real product photos everywhere instead of generic stock placeholders,
+  // so the homepage always reflects what's actually for sale.
+  const galleryImages = products.slice(0, 4).map((p) => p.image_url)
+  const heroImages = [galleryImages[0], galleryImages[1], galleryImages[2], galleryImages[3]]
+
+  function categoryImage(slug) {
+    const match = products.find((p) => p.category === slug && p.image_url)
+    return match?.image_url || null
+  }
 
   return (
     <div>
@@ -54,20 +62,26 @@ export default function Home() {
             </div>
           </div>
           <div className="order-1 md:order-2 relative">
-            <div className="grid grid-cols-5 grid-rows-5 gap-3 h-[380px] sm:h-[460px]">
-              <div className="col-span-3 row-span-3 rounded-3xl overflow-hidden bg-mist">
-                <img src="https://picsum.photos/seed/luna-hero-1/700/700" alt="Handmade wire bouquet" className="w-full h-full object-cover" />
+            {heroImages.some(Boolean) ? (
+              <div className="grid grid-cols-5 grid-rows-5 gap-3 h-[380px] sm:h-[460px]">
+                <div className="col-span-3 row-span-3 rounded-3xl overflow-hidden bg-mist">
+                  {heroImages[0] && <img src={heroImages[0]} alt="Handmade piece" className="w-full h-full object-cover" />}
+                </div>
+                <div className="col-span-2 row-span-2 col-start-4 rounded-2xl overflow-hidden bg-mist">
+                  {heroImages[1] && <img src={heroImages[1]} alt="Handmade piece" className="w-full h-full object-cover" />}
+                </div>
+                <div className="col-span-2 row-span-3 col-start-4 row-start-3 rounded-2xl overflow-hidden bg-midnight-700">
+                  {heroImages[2] && <img src={heroImages[2]} alt="Handmade piece" className="w-full h-full object-cover opacity-90" />}
+                </div>
+                <div className="col-span-3 row-span-2 row-start-4 rounded-2xl overflow-hidden bg-mist">
+                  {heroImages[3] && <img src={heroImages[3]} alt="Handmade piece" className="w-full h-full object-cover" />}
+                </div>
               </div>
-              <div className="col-span-2 row-span-2 col-start-4 rounded-2xl overflow-hidden bg-mist">
-                <img src="https://picsum.photos/seed/luna-hero-2/500/500" alt="Wire keychain detail" className="w-full h-full object-cover" />
+            ) : (
+              <div className="h-[380px] sm:h-[460px] rounded-3xl bg-midnight-50 grid place-items-center">
+                <WireLoop className="w-40 h-8 text-midnight-300" />
               </div>
-              <div className="col-span-2 row-span-3 col-start-4 row-start-3 rounded-2xl overflow-hidden bg-midnight-700">
-                <img src="https://picsum.photos/seed/luna-hero-3/500/700" alt="Wire flower stem" className="w-full h-full object-cover opacity-90" />
-              </div>
-              <div className="col-span-3 row-span-2 row-start-4 rounded-2xl overflow-hidden bg-mist">
-                <img src="https://picsum.photos/seed/luna-hero-4/700/500" alt="Bag charm on strap" className="w-full h-full object-cover" />
-              </div>
-            </div>
+            )}
           </div>
         </div>
       </section>
@@ -98,24 +112,31 @@ export default function Home() {
       <section className="container-page py-14">
         <SectionHeading eyebrow="Browse" title="Shop by category" />
         <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {CATEGORIES.map((c, i) => (
-            <Link
-              key={c.slug}
-              to={`/shop?category=${c.slug}`}
-              className="group relative aspect-[4/5] rounded-2xl overflow-hidden bg-midnight-800"
-            >
-              <img
-                src={`https://picsum.photos/seed/luna-cat-${i}/500/620`}
-                alt={c.label}
-                className="w-full h-full object-cover opacity-80 group-hover:opacity-65 group-hover:scale-105 transition-all duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
-              <div className="absolute bottom-0 left-0 p-4">
-                <p className="text-white font-display text-[19px]">{c.label}</p>
-                <p className="text-silver-200 text-[12.5px] mt-0.5">{c.tagline}</p>
-              </div>
-            </Link>
-          ))}
+          {CATEGORIES.map((c) => {
+            const img = categoryImage(c.slug)
+            return (
+              <Link
+                key={c.slug}
+                to={`/shop?category=${c.slug}`}
+                className="group relative aspect-[4/5] rounded-2xl overflow-hidden bg-midnight-800"
+              >
+                {img ? (
+                  <img
+                    src={img}
+                    alt={c.label}
+                    className="w-full h-full object-cover opacity-80 group-hover:opacity-65 group-hover:scale-105 transition-all duration-500"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-midnight-700" />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
+                <div className="absolute bottom-0 left-0 p-4">
+                  <p className="text-white font-display text-[19px]">{c.label}</p>
+                  <p className="text-silver-200 text-[12.5px] mt-0.5">{c.tagline}</p>
+                </div>
+              </Link>
+            )
+          })}
         </div>
       </section>
 
@@ -151,8 +172,10 @@ export default function Home() {
               Start a custom order <ArrowRight size={16} />
             </Link>
           </div>
-          <div className="min-h-[220px] md:min-h-full">
-            <img src="https://picsum.photos/seed/luna-custom/700/600" alt="Custom order example" className="w-full h-full object-cover" />
+          <div className="min-h-[220px] md:min-h-full bg-midnight-800">
+            {categoryImage('gifts') && (
+              <img src={categoryImage('gifts')} alt="Custom order example" className="w-full h-full object-cover" />
+            )}
           </div>
         </div>
       </section>
@@ -203,22 +226,24 @@ export default function Home() {
       </section>
 
       {/* Instagram gallery */}
-      <section className="container-page py-14">
-        <SectionHeading eyebrow="@thecrescentbloom" title="From the studio" align="center" />
-        <div className="mt-8 grid grid-cols-3 md:grid-cols-6 gap-2 sm:gap-3">
-          {GALLERY_SEEDS.map((seed) => (
-            <a
-              key={seed}
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="aspect-square rounded-xl overflow-hidden bg-mist block"
-            >
-              <img src={`https://picsum.photos/seed/${seed}/300/300`} alt="Studio moment" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
-            </a>
-          ))}
-        </div>
-      </section>
+      {galleryImages.length > 0 && (
+        <section className="container-page py-14">
+          <SectionHeading eyebrow="@thecrescentbloom" title="From the studio" align="center" />
+          <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3">
+            {products.slice(0, 8).map((p) => (
+              <a
+                key={p.id}
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="aspect-square rounded-xl overflow-hidden bg-mist block"
+              >
+                <img src={p.image_url} alt={p.name} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   )
 }
