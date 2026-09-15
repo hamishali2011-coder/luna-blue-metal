@@ -10,11 +10,11 @@
     overflow-x: hidden;
   }
   ::selection {
-    background: #8FA8D6;
+    background: #B99EDD;
     color: #171922;
   }
   :focus-visible {
-    outline: 2px solid #3C5C99;
+    outline: 2px solid #5C3894;
     outline-offset: 3px;
   }
 }

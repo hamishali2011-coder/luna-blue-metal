@@ -30,18 +30,20 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 bg-paper/90 backdrop-blur border-b border-silver-200">
-      <div className="container-page flex items-center justify-between h-[68px]">
-        <button
-          className="md:hidden -ml-2 p-2 text-ink"
-          onClick={() => setOpen(true)}
-          aria-label="Open menu"
-        >
-          <Menu size={22} />
-        </button>
+      <div className="container-page flex items-center justify-between h-[72px]">
+        <div className="flex items-center gap-1">
+          <button
+            className="md:hidden -ml-2 p-2 text-ink"
+            onClick={() => setOpen(true)}
+            aria-label="Open menu"
+          >
+            <Menu size={22} />
+          </button>
 
-        <Logo className="md:mr-8" />
+          <Logo className="md:mr-8" />
+        </div>
 
-        <nav className="hidden md:flex items-center gap-7 flex-1 ml-10">
+        <nav className="hidden md:flex items-center gap-7 flex-1 justify-center">
           {NAV_LINKS.map((link) => (
             <NavLink
               key={link.label}

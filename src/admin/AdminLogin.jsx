@@ -5,9 +5,13 @@ import Logo from '../components/Logo'
 import { useAuth } from '../context/AuthContext'
 import { isSupabaseConfigured } from '../lib/supabaseClient'
 
+// The admin login screen only asks for a password — this is the email
+// behind the scenes that the password is checked against in Supabase.
+// Change this if you ever create a different admin account.
+const ADMIN_EMAIL = 'hamishali2011@gmail.com'
+
 export default function AdminLogin() {
   const { signIn, isAuthenticated } = useAuth()
-  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -18,7 +22,7 @@ export default function AdminLogin() {
     e.preventDefault()
     setLoading(true)
     setError(null)
-    const { error: signInError } = await signIn(email, password)
+    const { error: signInError } = await signIn(ADMIN_EMAIL, password)
     if (signInError) setError(signInError.message)
     setLoading(false)
   }
@@ -45,20 +49,11 @@ export default function AdminLogin() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-[13px] font-medium text-ink/70 mb-1.5">Email</label>
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full rounded-xl border border-silver-300 px-4 py-3 text-[14.5px] outline-none focus:border-midnight-500"
-              />
-            </div>
-            <div>
               <label className="block text-[13px] font-medium text-ink/70 mb-1.5">Password</label>
               <input
                 type="password"
                 required
+                autoFocus
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full rounded-xl border border-silver-300 px-4 py-3 text-[14.5px] outline-none focus:border-midnight-500"
