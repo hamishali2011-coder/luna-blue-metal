@@ -30,7 +30,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 bg-paper/90 backdrop-blur border-b border-silver-200">
-      <div className="container-page flex items-center justify-between h-[72px]">
+      <div className="container-page flex items-center justify-between h-[84px]">
         <div className="flex items-center gap-1">
           <button
             className="md:hidden -ml-2 p-2 text-ink"

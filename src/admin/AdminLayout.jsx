@@ -17,7 +17,7 @@ export default function AdminLayout() {
 
   const SidebarContent = (
     <div className="flex flex-col h-full">
-      <div className="px-5 h-[68px] flex items-center border-b border-white/10">
+      <div className="px-5 h-[84px] flex items-center border-b border-white/10">
         <Logo dark />
       </div>
       <nav className="flex-1 px-3 py-5 space-y-1">
@@ -66,7 +66,7 @@ export default function AdminLayout() {
       )}
 
       <div className="flex-1 min-w-0">
-        <header className="md:hidden h-[60px] bg-midnight-900 flex items-center px-4">
+        <header className="md:hidden h-[76px] bg-midnight-900 flex items-center px-4">
           <button onClick={() => setOpen(true)} className="text-white" aria-label="Open menu"><Menu size={22} /></button>
           <div className="ml-3"><Logo dark /></div>
         </header>
