@@ -73,7 +73,7 @@ export default function Cart() {
           </div>
           <Link
             to="/checkout"
-            className="mt-6 w-full inline-flex items-center justify-center gap-2 bg-midnight-700 text-white px-6 py-3.5 rounded-full text-[14.5px] font-semibold hover:bg-midnight-800 transition-colors"
+            className="press-feedback mt-6 w-full inline-flex items-center justify-center gap-2 bg-midnight-700 text-white px-6 py-3.5 rounded-full text-[14.5px] font-semibold hover:bg-midnight-800 transition-colors"
           >
             Checkout <ArrowRight size={16} />
           </Link>

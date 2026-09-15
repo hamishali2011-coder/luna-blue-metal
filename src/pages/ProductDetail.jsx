@@ -84,14 +84,14 @@ export default function ProductDetail() {
             <button
               onClick={handleAddToCart}
               disabled={outOfStock}
-              className="flex-1 inline-flex items-center justify-center gap-2 border-2 border-midnight-700 text-midnight-700 px-6 py-3.5 rounded-full text-[14.5px] font-semibold hover:bg-midnight-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              className="press-feedback flex-1 inline-flex items-center justify-center gap-2 border-2 border-midnight-700 text-midnight-700 px-6 py-3.5 rounded-full text-[14.5px] font-semibold hover:bg-midnight-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
               {added ? <><Check size={16} /> Added</> : 'Add to Cart'}
             </button>
             <button
               onClick={handleBuyNow}
               disabled={outOfStock}
-              className="flex-1 inline-flex items-center justify-center gap-2 bg-midnight-700 text-white px-6 py-3.5 rounded-full text-[14.5px] font-semibold hover:bg-midnight-800 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              className="press-feedback flex-1 inline-flex items-center justify-center gap-2 bg-midnight-700 text-white px-6 py-3.5 rounded-full text-[14.5px] font-semibold hover:bg-midnight-800 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
               Buy Now
             </button>

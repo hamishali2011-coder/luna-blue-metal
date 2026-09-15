@@ -128,7 +128,7 @@ export default function Shop() {
             />
           ) : (
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-9">
-              {filtered.map((p) => <ProductCard key={p.id} product={p} />)}
+              {filtered.map((p, i) => <ProductCard key={p.id} product={p} index={i} />)}
             </div>
           )}
         </div>

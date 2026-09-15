@@ -87,7 +87,7 @@ export default function Checkout() {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-midnight-700 text-white px-8 py-3.5 rounded-full text-[14.5px] font-semibold hover:bg-midnight-800 transition-colors disabled:opacity-60"
+            className="press-feedback w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-midnight-700 text-white px-8 py-3.5 rounded-full text-[14.5px] font-semibold hover:bg-midnight-800 transition-colors disabled:opacity-60"
           >
             {submitting && <Loader2 size={16} className="animate-spin" />}
             {submitting ? 'Placing order…' : `Place order · ${formatPrice(total)}`}
